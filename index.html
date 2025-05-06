@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Treine Parte Código</title>
+  <style>
+    body { background: #121212; color: #eee; font-family: 'Segoe UI', sans-serif; padding: 20px; }
+    h1, h2 { color: #ffa500; }
+    input, textarea, button { padding: 10px; margin: 5px 0; border-radius: 5px; border: none; }
+    textarea { width: 100%; height: 150px; resize: vertical; }
+    button { background: #ffa500; color: #121212; cursor: pointer; }
+    #historico { background: #222; padding: 10px; margin-top: 20px; border-radius: 5px; max-height: 200px; overflow-y: auto; }
+    .cronometro { float: right; font-size: 20px; }
+    .sobre { margin-top: 30px; background: #333; padding: 15px; border-radius: 5px; }
+    #modal, #modalBoasVindas { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; overflow: hidden; }
+    .modal-content { background: #222; padding: 20px; border-radius: 8px; text-align: center; color: #ffa500; max-width: 90%; }
+    .modal-content img { width: 100px; border-radius: 50%; margin-bottom: 10px; }
+    .version { color: #ffa500; margin-left: 10px; }
+    .stars { font-size: 20px; color: gold; margin-left: 10px; }
+    textarea#codigoOrigem { background: #1e1e1e; color: #ffa500; border: 1px solid #ffa500; }
+    textarea#codigoDigitar { background: #1e1e1e; color: #00ff99; border: 1px solid #00ff99; }
+  </style>
+</head>
+<body>
+  <p><strong>Ajude o projeto:</strong> Faça uma doação via <a href="./doação-via-chave-pix.html" style="color:#ffa500;">Clique Aqui</a></p>
+
+  <h1>Treine Parte do Código <span class="stars">⭐⭐⭐⭐⭐</span> <span class="version">VERSÃO 1.0</span></h1>
+  <div class="cronometro" id="cronometro">00:00</div>
+
+  <h2>Cole o código para praticar:</h2>
+  <textarea id="codigoOrigem"></textarea>
+  <label><input type="checkbox" id="mostrarTexto" checked onchange="toggleTexto()"> Mostrar código original</label>
+  <button onclick="iniciarTreino()">Começar</button>
+
+  <h2>Digite aqui:</h2>
+  <textarea id="codigoDigitar" disabled oninput="verificarDigito()"></textarea>
+
+  <button onclick="limparTudo()">Limpar Tudo</button>
+  <button onclick="limparCookies()">Limpar Cookies</button>
+
+  <div id="historico">
+    <h3>Histórico:</h3>
+    <div id="listaHistorico"></div>
+  </div>
+
+  <div class="sobre">
+    <strong>Sobre:</strong>
+    <p>Autor: Gilmar Francisco dos Santos Filho</p>
+    <p>Criado com Inteligência Artificial para treinar código com TDAH</p>
+    <p>LinkedIn: <a href="https://br.linkedin.com/in/gilmarfranciscodossantosfilhosantosfilho" target="_blank" style="color:#ffa500;">Meu LinkedIn</a></p>
+    <p>Canal Youtube: <a href="https://www.youtube.com/@gilmarfilhos">@gilmarfilhos</a></p>
+  
+
+  </div>
+
+  <div id="modal">
+    <div class="modal-content">
+      <h2>Ajude o projeto!</h2>
+      <p>Faça uma doação via Iugu e fortaleça esse projeto 😉</p>
+      <button onclick="fecharModal()">Fechar</button>
+    </div>
+  </div>
+
+  <div id="modalBoasVindas">
+    <div class="modal-content">
+      <img src="https://curriculo-gilmar-filhos.vercel.app/img/gilmar-francisco-dos-santos-filho.png" alt="Gilmar">
+      <h2>Bem-vindo!</h2>
+      <p>Esse projeto foi feito com inteligência artificial para ajudar na memorização e digitação de código.</p>
+      <p>Como estou aprendendo e tenho dificuldade de memorização, está me ajudando muito.</p>
+      <button onclick="fecharBoasVindas()">Vamos lá!</button>
+    </div>
+  </div>
+
+<script>
+  let inicio, intervalo, treinos = parseInt(localStorage.getItem('qtdTreinos')||0);
+
+  window.onload = () => {
+    if(!localStorage.getItem('boasVindas')) {
+      setTimeout(()=>{
+        document.body.style.overflow = 'hidden';
+        document.getElementById('modalBoasVindas').style.display='flex';
+      }, 20000);
+      localStorage.setItem('boasVindas', new Date().getTime());
+    }
+    carregarHistorico();
+  }
+
+  function iniciarTreino() {
+    document.getElementById('codigoDigitar').value = '';
+    document.getElementById('codigoDigitar').disabled = false;
+    document.getElementById('codigoDigitar').focus();
+    cronometro(0);
+    inicio = new Date().getTime();
+  }
+
+  function cronometro() {
+    clearInterval(intervalo);
+    let cron = document.getElementById("cronometro");
+    intervalo = setInterval(() => {
+      let agora = new Date().getTime();
+      let diff = Math.floor((agora - inicio) / 1000);
+      let min = String(Math.floor(diff / 60)).padStart(2, '0');
+      let seg = String(diff % 60).padStart(2, '0');
+      cron.textContent = `${min}:${seg}`;
+    }, 500);
+  }
+
+  function verificarDigito() {
+    let original = document.getElementById('codigoOrigem').value;
+    let digitado = document.getElementById('codigoDigitar').value;
+    if (digitado === original) {
+      clearInterval(intervalo);
+      salvarHistorico(original);
+      document.getElementById('codigoDigitar').disabled = true;
+      treinos++;
+      localStorage.setItem('qtdTreinos', treinos);
+      if(treinos % 3 === 0 && (!localStorage.getItem('ultimaDoacao') || new Date().getTime() - localStorage.getItem('ultimaDoacao') > 1800000)){
+        document.getElementById('modal').style.display='flex';
+        localStorage.setItem('ultimaDoacao', new Date().getTime());
+      }
+    }
+  }
+
+  function salvarHistorico(codigo) {
+    let tempo = document.getElementById("cronometro").textContent;
+    let dataHora = new Date().toLocaleString();
+    let historico = JSON.parse(localStorage.getItem('treinoHistorico') || '[]');
+    historico.push({ codigo, tempo, dataHora });
+    localStorage.setItem('treinoHistorico', JSON.stringify(historico));
+    carregarHistorico();
+  }
+
+  function carregarHistorico() {
+    let lista = document.getElementById("listaHistorico");
+    lista.innerHTML = '';
+    let historico = JSON.parse(localStorage.getItem('treinoHistorico') || '[]');
+    historico.forEach((item, i) => {
+      lista.innerHTML += `<p><strong>#${i+1}</strong> [${item.tempo}] ${item.dataHora}<br><pre style='background:#333;padding:5px;border-radius:3px;'>${item.codigo}</pre></p>`;
+    });
+  }
+
+  function toggleTexto(){
+    document.getElementById('codigoOrigem').style.color = document.getElementById('mostrarTexto').checked ? '#ffa500' : 'transparent';
+  }
+
+  function limparTudo(){
+    clearInterval(intervalo);
+    document.getElementById('cronometro').textContent = '00:00';
+    document.getElementById('codigoOrigem').value = '';
+    document.getElementById('codigoDigitar').value = '';
+    document.getElementById('codigoDigitar').disabled = true;
+  }
+
+  function limparCookies(){
+    localStorage.clear();
+    location.reload();
+  }
+
+  function fecharModal(){
+    document.getElementById('modal').style.display='none';
+  }
+
+  function fecharBoasVindas(){
+    document.getElementById('modalBoasVindas').style.display='none';
+    document.body.style.overflow = 'auto';
+  }
+</script>
+
+</body>
+</html>

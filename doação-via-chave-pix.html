@@ -1,0 +1,75 @@
+<!-- doacao.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doações</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 1.1em;
+      line-height: 1.5em;
+    }
+    .pix-key {
+      background: #333;
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1.2em;
+      word-break: break-all;
+      margin: 15px 0;
+    }
+    button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      font-size: 1.1em;
+      background: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Ajude o Projeto!</h1>
+    <p>Se você gostou do projeto e quer apoiar o desenvolvimento de novas ferramentas e melhorias, considere fazer uma doação via PIX:</p>
+    <div class="pix-key" id="pixKey">3432qqwe1123123122312</div>
+    <button onclick="copiarPix()">Copiar Chave PIX</button>
+    <p>Qualquer valor é muito bem-vindo! Obrigado pelo apoio. ❤️</p>
+  </div>
+
+  <script>
+    function copiarPix() {
+      const chave = document.getElementById('pixKey').innerText;
+      navigator.clipboard.writeText(chave).then(() => {
+        alert('Chave PIX copiada com sucesso!');
+      });
+    }
+  </script>
+</body>
+</html>
