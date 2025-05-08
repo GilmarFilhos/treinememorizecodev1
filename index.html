@@ -52,7 +52,7 @@
   <h2>Cole o código para praticar:</h2>
   <textarea id="codigoOrigem"></textarea>
   <label><input type="checkbox" id="mostrarTexto" checked onchange="toggleTexto()"> Mostrar código original</label>
-  <button onclick="iniciarTreino()">Começar</button>
+  <button id="iniciarTreino" onclick="iniciarTreino()">Começar</button>
 
   <h2>Digite aqui:</h2>
   <textarea id="codigoDigitar" disabled oninput="verificarDigito()"></textarea>
@@ -109,12 +109,16 @@
   }
 
   function iniciarTreino() {
+
+document.getElementById('iniciarTreino').style.display = 'none';
+
     document.getElementById('codigoDigitar').value = '';
+
     document.getElementById('codigoDigitar').disabled = false;
     document.getElementById('codigoDigitar').focus();
     cronometro(0);
     inicio = new Date().getTime();
-    document.getElementById('iniciarTreino').style.display = 'none';
+
   }
 
   function cronometro() {
@@ -141,6 +145,7 @@
       if(treinos % 3 === 0 && (!localStorage.getItem('ultimaDoacao') || new Date().getTime() - localStorage.getItem('ultimaDoacao') > 1800000)){
         document.getElementById('modal').style.display='flex';
         localStorage.setItem('ultimaDoacao', new Date().getTime());
+
       }
     }
   }
@@ -152,6 +157,8 @@
     historico.push({ codigo, tempo, dataHora });
     localStorage.setItem('treinoHistorico', JSON.stringify(historico));
     carregarHistorico();
+   document.getElementById('iniciarTreino').style.display = 'inline';
+
   }
 
   function carregarHistorico() {
