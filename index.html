@@ -19,7 +19,7 @@
     <!-- Open Graph (Facebook, LinkedIn) -->
     <meta property="og:title" content="Treine e Memorize Código - Aprimore sua Digitação e Memorização">
     <meta property="og:description" content="Um site interativo para ajudar pessoas com TDAH a melhorar a memorização e digitação de códigos de programação.">
-    <meta property="og:url" content="https://treinememorizecodev1.netlify.app/">
+    <meta property="og:url" content="https://treinememorizecodev1.netlify.app/index.html">
     <meta property="og:type" content="website">
   
   
@@ -67,33 +67,47 @@
 
   <div class="sobre">
     <strong>Sobre:</strong>
-    <p>Autor: Gilmar Francisco dos Santos Filho</p>
-    <p>Criado com Inteligência Artificial para treinar código com TDAH</p>
+    <p>Dono: Gilmar Francisco dos Santos Filho</p>
+    
     <p>LinkedIn: <a href="https://br.linkedin.com/in/gilmarfranciscodossantosfilhosantosfilho" target="_blank" style="color:#ffa500;">Meu LinkedIn</a></p>
     <p>Canal Youtube: <a href="https://www.youtube.com/@gilmarfilhos">@gilmarfilhos</a></p>
-  
+     <p>Instagram:  <a href="https://www.instagram.com/gilmarsantofilho/">gilmarsantofilho</a></p>
 
   </div>
 
+
+  <div id="modalBoasVindas">
+    <div class="modal-content">
+      <h1>GILMAR FILHO</h1>
+      <img src="https://curriculo-gilmar-filhos.vercel.app/img/gilmar-francisco-dos-santos-filho.png" alt="Gilmar">
+      <h2>Seja Bem-vindos (a)!</h2>
+      <p>Esse projeto foi feito  para ajudar na memorização e digitação de código.</p>
+      <br>
+      <p>REALMENTE TENHO TDAH, E EU MESMO TOU FICANDO SUPRESO</p>
+      <p>Pois estou Desenvolvendo metodos, para me ajudar , e vocês</p>
+      <p>E estou aprendendo e tenho dificuldade de memorização, está me ajudando muito.</p>
+
+      
+  <a href="https://whatsapp.com/channel/0029Vaj01rY2ER6jgxsD4j07">
+  <img src="./410199-PD37U2-851-.png" width="230px">
+
+  Clique aqui no link
+
+  </a>
+
+      <button onclick="fecharBoasVindas()">Iniciar</button>
+    </div>
+  </div>
+
+  
   <div id="modal">
     <div class="modal-content">
-      <h2>Ajude o projeto!</h2>
+      <h2>Ajude  projeto!</h2>
       <p>Faça uma doação e fortaleça esse projeto 😉</p>
       <img src="https://toppng.com/uploads/preview/cafe-espresso-png-image-cup-of-coffee-11563059812q5wfsaib0o.png" width="120px">
       <button onclick="fecharModal()">Fechar</button>
     </div>
   </div>
-
-  <div id="modalBoasVindas">
-    <div class="modal-content">
-      <img src="https://curriculo-gilmar-filhos.vercel.app/img/gilmar-francisco-dos-santos-filho.png" alt="Gilmar">
-      <h2>Bem-vindo!</h2>
-      <p>Esse projeto foi feito com inteligência artificial para ajudar na memorização e digitação de código.</p>
-      <p>Como estou aprendendo e tenho dificuldade de memorização, está me ajudando muito.</p>
-      <button onclick="fecharBoasVindas()">Vamos lá!</button>
-    </div>
-  </div>
-
 <script>
   let inicio, intervalo, treinos = parseInt(localStorage.getItem('qtdTreinos')||0);
 
